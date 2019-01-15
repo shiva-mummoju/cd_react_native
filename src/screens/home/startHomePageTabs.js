@@ -44,7 +44,7 @@ const startHomePageTabs = () => {
                   }],
                   options: {
                     bottomTab: {
-                      text: 'Tab 1',
+                      text: 'Tab 2',
                       icon: source[1],
                       testID: 'SECOND_TAB_BAR_BUTTON'
                     }
