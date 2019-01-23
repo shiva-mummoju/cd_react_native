@@ -6,10 +6,17 @@ import WallScreen from './src/screens/wall/wall';
 
 import CD from './src/screens/screenIDS'
 
+// for redux
+import { Provider } from 'react-redux';
+
+import configureStore from './src/store/storeConfig';
+
+const store = configureStore();
+
 // register screens
-Navigation.registerComponent(CD.AuthScreen , () => AuthScreen);
-Navigation.registerComponent(CD.ProfileScreen , () => ProfileScreen);
-Navigation.registerComponent(CD.WallScreen , () => WallScreen);
+Navigation.registerComponentWithRedux(CD.AuthScreen , () => AuthScreen ,Provider , store);
+Navigation.registerComponentWithRedux(CD.ProfileScreen , () => ProfileScreen , Provider , store);
+Navigation.registerComponentWithRedux(CD.WallScreen , () => WallScreen , Provider , store);
 
 // start the app
 Navigation.events().registerAppLaunchedListener(() => {
