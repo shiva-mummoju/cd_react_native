@@ -1,5 +1,6 @@
 export default  CD = {
     'ProfileScreen' : 'ProfileScreen',
     'AuthScreen' : 'AuthScreen',
-    'WallScreen' : 'WallScreen'
+    'WallScreen' : 'WallScreen',
+    'SideMenu' : 'SideMenu'
 }

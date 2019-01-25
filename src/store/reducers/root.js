@@ -2,7 +2,8 @@
 import { changeData , CHANGE_DATA} from './../actions/index';
 
 const initialState = {
-    data: 'data in the initial state. Redux'
+    data: 'data in the initial state. Redux',
+ 
 }
 
 const reducer = (state = initialState , action) => {

@@ -2,6 +2,8 @@ import { Navigation } from 'react-native-navigation';
 import CD from './../screenIDS';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+// objects which contains the configuration for topBar
+
 
 const startHomePageTabs = () => {
   Promise.all([
@@ -9,51 +11,64 @@ const startHomePageTabs = () => {
     Icon.getImageSource("ios-albums", 30)
   ]).then(source => {
 
+    const topBarOptions = {
+      topBar: {
+        background: {
+          color: 'blue'
+        },
+        title: {
+          text: "Home",
+          color: 'white',
+        },
+        // hideOnScroll: UI.settings.general.hideBarsOnScroll,
+        rightButtons: [{
+          id: 'right',
+          text: 'right',
+          icon: source[0],
+          color: 'white',
+        }],
+        leftButtons: [{
+          id: 'left',
+          text: 'left',
+          color: 'white',
+          icon: source[0],
+        }],
+      },
+    }
+    // component object describing the wall screen
+    const wallScreenComponentObject = {
+      name: CD.WallScreen,
+      passProps: {
+        text: 'This is wall screen'
+      },
+      options: topBarOptions
+    }
+    
+    const profileScreenComponentObject = {
+      name: CD.ProfileScreen,
+      passProps: {
+        text: 'This is profile screen'
+      },
+      options: topBarOptions
+    }
+
 
     Navigation.setRoot({
       root: {
         sideMenu: {
-          id: "sideMenu",
+          id: CD.sideMenu,
           left: {
             component: { name: CD.ProfileScreen, },
             visible: false
-          },
+          }, // left ends here
           center: {
             bottomTabs: {
               children: [
-                {
+                //first tab starts from here
+                { 
                   stack: {
                     children: [{
-                      component: {
-                        name: CD.WallScreen,
-                        passProps: {
-                          text: 'This is tab 1'
-                        },
-                        options: {
-                          topBar: {
-                            background: {
-                              color: 'blue'
-                            },
-                            title: {
-                              text: "Home",
-                              color: 'white',
-                            },
-                            // hideOnScroll: UI.settings.general.hideBarsOnScroll,
-                            rightButtons: [{
-                              id: 'right',
-                              text: 'right',
-                              icon: source[0],
-                              color: 'white',
-                            }],
-                            leftButtons: [{
-                              id: 'left',
-                              text: 'left',
-                              color: 'white',
-                              icon: source[0],
-                            }],
-                          },
-                        }
-                      }
+                      component: wallScreenComponentObject
                     }],
                     options: {
                       bottomTab: {
@@ -63,41 +78,11 @@ const startHomePageTabs = () => {
                       }
                     }
                   }
-                },
-
-                {
+                }, //first tab 1 ends here
+                {  // second tab starts from here
                   stack: {
                     children: [{
-                      component: {
-                        name: CD.ProfileScreen,
-                        passProps: {
-                          text: 'This is tab 2'
-                        },
-                        options: {
-                          topBar: {
-                            background: {
-                              color: 'blue'
-                            },
-                            title: {
-                              text: "Home",
-                              color: 'white'
-                            },
-                            // hideOnScroll: UI.settings.general.hideBarsOnScroll,
-                            rightButtons: [{
-                              id: 'right1',
-                              text: 'right',
-                              icon: source[0],
-                              color: 'white',
-                            }],
-                            leftButtons: [{
-                              id: 'left1',
-                              text: 'left',
-                              icon: source[0],
-                              color: 'white',
-                            }],
-                          },
-                        }
-                      }
+                      component: profileScreenComponentObject
                     }],
                     options: {
                       bottomTab: {
@@ -107,24 +92,20 @@ const startHomePageTabs = () => {
                       }
                     }
                   }
-                }],
-
-            },
-       
-            //bottom tabs end here
-          
-
-
-          },
+                } // second screen tab 2 ends here
+              ], //bottomTabs.children[] ends here
+            }, //bottom tabs end here
+          }, // center ends here
           right: {
             component: { name: CD.ProfileScreen },
             visible: false
-          }
-        }
-        //sidemenu ends here
-      }
-    });
-  })
+          } // right ends here
+        } //sidemenu ends here
+      } // root ends here
+    }); //setRoot ends here
+  }) //Promise.then ends here
+
+
   Navigation.events().registerNavigationButtonPressedListener(navigationButtonPressed);
   //unregistered automatically when the component unmounts.
 }
@@ -150,6 +131,8 @@ navigationButtonPressed = (event) => {
   });
 
 }
+
+
 
 
 
